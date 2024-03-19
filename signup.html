@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- ===== CSS ===== -->
+    <link rel="stylesheet" href="assets/css/styles.css" />
+
+    <!-- ===== BOX ICONS ===== -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+
+    <title>Responsive Login Form Sign In Sign Up</title>
+  </head>
+  <body>
+    <div class="login">
+      <div class="login__content">
+        <div class="login__img">
+          <img src="assets/img/img-login.svg" alt="" />
+        </div>
+
+        <div class="login__forms">
+          <form action="" class="login__registre" id="login-in">
+            <h1 class="login__title">Sign In</h1>
+
+            <div class="login__box">
+              <i class="bx bx-user login__icon"></i>
+              <input
+                type="email"
+                placeholder="Email"
+                id="email"
+                name="email"
+                class="login__input"
+              />
+            </div>
+
+            <div class="login__box">
+              <i class="bx bx-lock-alt login__icon"></i>
+              <input
+                type="password"
+                placeholder="Password"
+                id="password"
+                name="password"
+                class="login__input"
+              />
+            </div>
+
+            <a href="#" class="login__forgot">Forgot password?</a>
+
+            <button class="login__button" href="./index.html" type="submit">Sign Up</button>
+
+            <div>
+              <span class="login__account">Don't have an Account ?</span>
+              <span class="login__signin" id="sign-up">Sign Up</span>
+            </div>
+          </form>
+
+          <form action="" class="login__create none" id="login-up">
+            <h1 class="login__title">Create Account</h1>
+
+            <div class="login__box">
+              <i class="bx bx-user login__icon"></i>
+              <input type="text" placeholder="Username" class="login__input" />
+            </div>
+
+            <div class="login__box">
+              <i class="bx bx-at login__icon"></i>
+              <input
+                type="email"
+                placeholder="Email"
+                id="email"
+                name="email"
+                class="login__input"
+              />
+            </div>
+
+            <div class="login__box">
+              <i class="bx bx-lock-alt login__icon"></i>
+              <input
+                type="password"
+                placeholder="Password"
+                id="password"
+                name="password"
+                class="login__input"
+              />
+            </div>
+
+            <button class="login__button" type="submit">Sign Up</button>
+
+            <div>
+              <span class="login__account">Already have an Account ?</span>
+              <span class="login__signup" id="sign-in">Sign In</span>
+            </div>
+
+            <div class="login__social">
+              <a href="#" class="login__social-icon"
+                ><i class="bx bxl-facebook"></i
+              ></a>
+              <a href="#" class="login__social-icon"
+                ><i class="bx bxl-twitter"></i
+              ></a>
+              <a href="#" class="login__social-icon"
+                ><i class="bx bxl-google"></i
+              ></a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!--===== MAIN JS =====-->
+    <script src="assets/js/main.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-auth.js"></script>
+
+    <script>
+      const firebaseConfig = {
+        apiKey: "AIzaSyABLSChzy8X3bwkG2yyqVaPjnxFXaficpo",
+        authDomain: "shoplane-6ebe5.firebaseapp.com",
+        projectId: "shoplane-6ebe5",
+        storageBucket: "shoplane-6ebe5.appspot.com",
+        messagingSenderId: "303639898778",
+        appId: "1:303639898778:web:958b8e8c33e742a42d4d23",
+        measurementId: "G-7SG21YVH2D",
+      };
+
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+    </script>
+
+    <script>
+      const signupForm = document.getElementById("login-up");
+
+      signupForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const email = signupForm["email"].value;
+        const password = signupForm["password"].value;
+
+        console.log(email, password);
+
+        firebase
+          .auth()
+          .createUserWithEmailAndPassword(email, password)
+          .then((userCredential) => {
+            // Signed up successfully
+            console.log("User signed up successfully");
+            // You can redirect to another page or do something else here
+            window.location.href = "./index.html";
+          })
+          .catch((error) => {
+            // Handle errors
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            console.error(errorCode, errorMessage);
+          });
+      });
+
+      const signinForm = document.getElementById("login-in");
+
+      signinForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const email = signinForm["email"].value;
+        const password = signinForm["password"].value;
+
+        firebase
+          .auth()
+          .signInWithEmailAndPassword(email, password)
+          .then((userCredential) => {
+            // Signed in successfully
+            console.log("User signed in successfully");
+            // You can redirect to another page or do something else here
+            window.location.href = "./index.html";
+          })
+          .catch((error) => {
+            // Handle errors
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            console.error(errorCode, errorMessage);
+          });
+      });
+    </script>
+  </body>
+</html>
